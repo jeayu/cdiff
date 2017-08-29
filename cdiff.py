@@ -14,6 +14,7 @@ import signal
 import subprocess
 import select
 import difflib
+import platform
 
 META_INFO = {
     'version'     : '1.0',
@@ -708,7 +709,8 @@ def terminal_size():
 
 
 def main():
-    signal.signal(signal.SIGPIPE, signal.SIG_DFL)
+    if platform.system() is not 'Windows':
+        signal.signal(signal.SIGPIPE, signal.SIG_DFL)
     signal.signal(signal.SIGINT, signal.SIG_DFL)
 
     from optparse import (OptionParser, BadOptionError, AmbiguousOptionError,
